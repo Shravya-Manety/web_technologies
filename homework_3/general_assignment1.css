@@ -1,0 +1,91 @@
+.general{
+    padding-top: 30px;
+    font-family: Georgia, serif;
+}
+.padding{
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 75px;
+}
+.heading_box{
+    margin: auto;
+    width: 460px;
+    border: 1px solid black;
+    padding: 20px;
+    text-align: center;
+}
+.james_jantz{
+    font-size: 43px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-weight: 500;
+    color: #1a1a1a   
+}
+.current_page{
+    color:black;
+}
+.other_page{
+    color:gray;
+}
+.link{
+    text-decoration: none;
+    color: gray;
+}
+.headings{
+    font-style: italic;
+    font-size: 10px;
+    padding: 5px;
+    font-weight: bold; 
+}
+div.img_div{
+    margin: auto;
+    padding-bottom: 30px;
+}
+.main_img{
+    height: 285px;
+    width: 290px;
+}
+.nature{
+    grid-area: b;
+    font-size: 20px;
+    margin-top: -20px;
+    margin-bottom: 5px;
+}
+.wrapper{
+    display: grid;
+    grid-area: a;
+    margin: auto;
+    grid-template-columns: 290px 285px;
+    grid-gap: 4px;
+    align-self: center;
+    justify-self: center;
+}
+.outer_wrapper{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: 
+    ". b ."
+    ". a .";
+}
+.footer_credits{
+    font-size: 12px;
+    text-align: center;
+    font-style: italic;
+    color: #505050;
+    padding-bottom: 9px; 
+}
+.footer_div_display{
+    display: grid;
+    padding-bottom: 50px;
+}
+.footer_div_margin{
+    margin: auto;
+}
+.footer_img{
+    height: 20px;
+    width: 20px; 
+    padding: 7px;
+}
+.nature_img{
+    object-fit: cover;
+}
