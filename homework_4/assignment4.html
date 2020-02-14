@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Homework4</title>
+        <style>
+        </style>
+
+    </head>
+    <body>
+        <div style="text-align: center;">
+            <p style="margin-top: 50px;"><b>Enter URL for list of tallest buildings JSON file</b></p>
+            <form name="buildingList" id="buildings" method="POST">
+                <input style="margin: 10px;"type="text" maxlength="255" size="25" name="URL" required/>
+                <br>
+                <input style="margin: 10px;" type="button" value="Submit Query" name="submit" onclick="viewJSON(this.form)"/>
+            </form>
+        </div>
+
+        <script>
+            error_found = false;
+            empty_rows = false;
+            function viewJSON(formdata) {
+                var URL = formdata.URL.value;
+                
+                if(URL === undefined || URL === null || URL === ""){
+                    alert("Error : Please enter a JSON File Name.");
+                } 
+                else if(!(/[a-z,A-Z,0-9//-//_].json/.test(URL))){
+                    alert("Error: Please enter Filename with a Valid File Format (.json).")
+                }
+                else{
+                function loadJSON(url) {
+                    xmlhttp=new XMLHttpRequest();
+                    xmlhttp.open("GET",url,false);
+                    
+                    try{
+                      xmlhttp.send();
+                    }
+                    catch(err){
+                      error_found = true;
+                      alert("Error: File Not Found");
+                    }
+                    try{
+                      jsonObj= JSON.parse(xmlhttp.responseText);
+                      return jsonObj;
+                    }
+                    catch(err){
+                        error_found = true;
+                        alert("Error: Invalid JSON Found")
+                    }
+                }
+
+                error_found = false;
+                empty_rows = false;
+                jsonObj = loadJSON(URL);              
+                if(!error_found || jsonObj !== undefined || jsonObj !== null){
+                  if(jsonObj.Mainline === undefined || jsonObj.Mainline === null  || jsonObj.Mainline.Table === undefined || jsonObj.Mainline.Table === null){
+                      alert("Error : File is Empty.")
+                  }
+                  else if(jsonObj.Mainline.Table.Header === undefined || jsonObj.Mainline.Table.Header == null || jsonObj.Mainline.Table.Header.Data === undefined || jsonObj.Mainline.Table.Header.Data === null || jsonObj.Mainline.Table.Header.Data.length === 0){
+                      alert("Error : Invalid File Structure.")
+                  }
+                  else if(!jsonObj.Mainline.Table.hasOwnProperty("Row") || jsonObj.Mainline.Table.Row === undefined || jsonObj.Mainline.Table.Row === null || jsonObj.Mainline.Table.Row.length === 0){
+                      alert("Error: No Data/Rows Found.")
+                  }
+                  else{
+                    error_found = false;
+                    empty_rows = false;
+                    jsonObj.onload=generateHTML(jsonObj);
+                    if(error_found){
+                      error_found = false;
+                      alert("Error: Invalid JSON Found.");
+                    }
+                    else if(empty_rows){
+                        empty_rows = false;
+                        alert("Error: No Data/Rows Found.")
+                    }
+                    else{
+                      error_found = false;
+                      hWin = window.open("", "Assignment4", "height=600,width=1200");
+                      hWin.document.write(html_text); 
+                      hWin.document.close();
+                    }
+                  }  
+                }
+              }
+            }
+            function generateHTML(jsonObj)   {
+                root=jsonObj.DocumentElement; 
+                html_text="<html><head><title>List of Tallest Buikdings</title></head><body>";
+                html_text+="<table border='2'>";
+                headers=jsonObj.Mainline.Table.Header.Data;
+                html_text+="<tbody>"; 
+                html_text+="<tr>"; 
+                
+                // output the headers
+                for(i=0;i<headers.length;i++){ 			       
+                    html_text+="<th>"+headers[i]+"</th>";    			
+                }
+                html_text+="</tr>";
+
+                // output out the values
+                rows = jsonObj.Mainline.Table.Row;
+                empty_rows_count = 0;
+                for(i=0;i<rows.length;i++)
+                {       
+                    buildingProperties = rows[i];                
+                    html_text+="<tr>";//start a new row of the output table
+                    var row_keys = Object.keys(buildingProperties);
+                    if(row_keys == 0){
+                        empty_rows_count += 1;
+                    }
+                    for(j=0; j<row_keys.length;j++){
+                      prop = row_keys[j];
+                      if(prop !== "Rank" && prop !== "Name" && prop !== "Hubs" && prop !== "Height" && prop !== "HomePage" && prop !== "Logo"){
+                        error_found = true;
+                        break;
+                      }
+                      if(row_keys[j]==="Hubs"){
+                          html_text+="<td>"
+                          if(rows[i].Hubs.Hub === undefined){
+                              error_found = true;
+                              break;
+                          }
+                          var hub = rows[i].Hubs.Hub;
+                          var hub_vals = 0;
+                          var html_text_hub = "";
+                          for(k=0;k<hub.length;k++){
+                              html_text_hub+="<li>";
+                              if(hub[k] === undefined || hub[k] === null || hub[k] === ""){
+                                  hub_vals += 1;
+                              }
+                              if(k===0){
+                                  html_text_hub+="<b>"+hub[k]+"</b>";
+                              }
+                              else{
+                                  html_text_hub+=hub[k];
+                              }
+                              html_text_hub+="</li>";
+                          }
+                          if(hub_vals !== hub.length){
+                            html_text+="<ul>";
+                            html_text+=html_text_hub;
+                            html_text+="</ul>";
+                          }
+                          html_text+="</td>"
+                      }
+                      else if(row_keys[j]==="HomePage"){
+                          html_text+="<td><a href='"+ buildingProperties[row_keys[j]] +"'>"+buildingProperties[row_keys[j]]+"</a></td>"; 
+                      }
+                      else if(row_keys[j]==="Logo"){
+                          html_text+="<td><img src='"+ buildingProperties[row_keys[j]] +"' width='175' height='175'></td>"; 
+                      }
+                      else{
+                          html_text+="<td>"+ buildingProperties[row_keys[j]] +"</td>";
+                      }	        
+                    } 		           
+                    html_text+="</tr>";
+                    if(error_found){
+                        break;
+                    }            
+                }
+                if(empty_rows_count == rows.length){
+                    empty_rows = true;
+                }
+                html_text+="</tbody>"; 
+                html_text+="</table>";           
+                html_text+= "</bo" + "<dy> </html>";
+            }
+        </script>
+
+    </body>
+</html>
