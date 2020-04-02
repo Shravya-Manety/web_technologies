@@ -11,7 +11,8 @@ import PropTypes from 'prop-types'
 
 import './component.css'
 import ShareModalComponent from './ShareModalComponent'
-import { getSectionClassName, formatDate } from './Utilties'
+import { getSectionClassName } from './Utilties'
+import { format } from 'date-fns'
 
 class FavoriteCardComponent extends React.Component {
     constructor(props) {
@@ -48,7 +49,7 @@ class FavoriteCardComponent extends React.Component {
         })
     }
     render() {
-        const date = formatDate(this.props.newsObj.date);
+        const date = format(new Date(this.props.newsObj.date), 'yyyy-MM-dd')
         return (
             <>
                 <ShareModalComponent show={this.state.show} handleModalClose={() => this.handleModalClose()} title={this.props.newsObj.title} link={this.props.newsObj.link} isGuardian={this.props.newsObj.isGuardian} />

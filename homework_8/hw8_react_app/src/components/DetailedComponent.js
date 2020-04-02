@@ -13,8 +13,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Zoom } from 'react-toastify';
 import Media from 'react-media'
 import PropTypes from 'prop-types'
+import { format } from 'date-fns'
 
-import {formatDateDetailPage, formatDescription} from './Utilties'
+import { formatDescription} from './Utilties'
 import CommentBoxComponent from './CommentBoxComponent'
 import LoadingComponent from './LoadingComponent'
 import FbShareComponent from './FbShareComponent';
@@ -110,7 +111,7 @@ class DetailedComponent extends React.Component {
     }
     render() {
         if (this.state.result !== undefined && this.state.result !== null && this.state.result.length !== 0) {
-            var date = formatDateDetailPage(this.state.result.date)
+            var date = format(new Date(this.state.result.date), 'd MMMM yyyy')
             var [basicDesc, advancedDesc] = formatDescription(this.state.result.description)
             var idVal = this.state.result.id.toString();
         }

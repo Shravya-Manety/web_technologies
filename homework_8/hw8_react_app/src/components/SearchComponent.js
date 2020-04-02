@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import SearchCardComponent from './SearchCardComponent'
-import { formatDate } from './Utilties'
+import { format } from 'date-fns'
 import LoadingComponent from './LoadingComponent'
 
 const axios = require('axios')
@@ -72,37 +72,31 @@ class SearchComponent extends React.Component {
     }
 
     render() {
-        console.log("searchReq :", this.state.searchReq)
-        console.log("render:", this.state.guardianRes)
-        if (this.state.guardianRes instanceof Array && this.state.guardianRes.length > 0){
-            var listOfNews = this.state.guardianRes.map((newsItem) => {
-                const date = formatDate(newsItem.date);
+        const guardianResState  = this.state.guardianRes;
+        const nytResState = this.state.nytRes
+        if (guardianResState instanceof Array && guardianResState.length > 0){
+            var listOfNews = guardianResState.map((newsItem) => {
+                const date = format(new Date(newsItem.date), 'yyyy-MM-dd')
                 return <Col md={3} key={newsItem.id}><SearchCardComponent id={newsItem.id} isGuardian={true} title={newsItem.title + " "} date={date} section={newsItem.section} imgUrl={newsItem.image} link={newsItem.link} /></Col>
             })
         }
         else{
             listOfNews = [];
         }
-        console.log("listOfNews:", listOfNews)
-        console.log("render:", this.state.guardianRes)
-        if(this.state.nytRes instanceof Array && this.state.nytRes.length > 0){
+        if(nytResState instanceof Array && nytResState.length > 0){
 
-            var tempListOfNews = Array.isArray(this.state.nytRes) && this.state.nytRes.map((newsItem) => {
-                const date = formatDate(newsItem.date);
+            var tempListOfNews = Array.isArray(nytResState) && nytResState.map((newsItem) => {
+                const date = format(new Date(newsItem.date), 'yyyy-MM-dd')
                 return <Col md={3} key={newsItem.link}><SearchCardComponent id={newsItem.link} isGuardian={false} title={newsItem.title + " "} date={date} section={newsItem.section} imgUrl={newsItem.image} link={newsItem.link} /></Col>
             })
-            console.log("tempListOfNews :", tempListOfNews)
         }
         if (listOfNews !== undefined && listOfNews !== null && tempListOfNews !== undefined && tempListOfNews !== null && tempListOfNews.length === 5) {
             listOfNews.push.apply(listOfNews, tempListOfNews)
         }
-        const guardianResState  = this.state.guardianRes;
-        const nytResState = this.state.nytRes
-        console.log("inside search component render")
+        
         return (
             <>
-                {/* {   (this.state.guardianRes === null || this.state.guardianRes.length === 0) && (this.state.nytRes === null || this.state.nytRes.length ===0) */
-                    
+                {                   
                     guardianResState instanceof Array && nytResState instanceof Array
                     ?
                     <Container fluid>

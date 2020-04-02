@@ -2,7 +2,7 @@ import React from 'react'
 import NewsCardComponent from './NewsCardComponent'
 import PropTypes from 'prop-types'
 
-import { formatDate } from './Utilties'
+import { format } from 'date-fns'
 import LoadingComponent from './LoadingComponent'
 
 const axios = require('axios')
@@ -43,7 +43,7 @@ class HomeComponent extends React.Component {
     render() {
         
         const listOfNewsCards = this.state.news.map((newsItem) => {
-            const date = formatDate(newsItem.date);
+            const date = format(new Date(newsItem.date), 'yyyy-MM-dd')
             const keyValue = this.props.isGuardian ? newsItem.id : newsItem.link 
             return <NewsCardComponent key={keyValue} isGuardian={this.props.isGuardian} id={keyValue} imgUrl={newsItem.image} title={newsItem.title} date={date} section={newsItem.section} description={newsItem.description} link = {newsItem.link}/>
         })

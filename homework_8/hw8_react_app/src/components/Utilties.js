@@ -1,21 +1,3 @@
-
-
-export function formatDate(dateVal){
-    let date = new Date(dateVal)
-    const day = ("0" + date.getDate()).slice(-2)
-    const month = ("0" + (date.getMonth() + 1)).slice(-2)
-    date = date.getFullYear() + "-" + (month) + "-" + (day)
-    return date
-}
-
-export function formatDateDetailPage(dateVal){
-    let date = new Date(dateVal)
-    const day = date.getDate()
-    const month = date.toLocaleString('default', { month: 'long' })
-    date = (day) + " " + (month) +" "+date.getFullYear()
-    return date
-}
-
 export function getSectionClassName(sectionName) {
     switch (sectionName) {
         case 'WORLD':
