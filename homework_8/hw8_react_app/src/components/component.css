@@ -1,0 +1,291 @@
+/* ------------------------------------------------ NAVBAR ---------------------------------------------------------- */
+.navbar-bg-color{
+    background-image: linear-gradient(to right, #122240 , #3A60B3) !important;
+}
+.left-padding{
+    padding-left: 10px;
+}
+.right-padding{
+    padding-right: 14px;
+}
+.link{
+    color : #6378A2;
+    font-size: 13px;
+    padding: 5px 7px 5px 4px;
+    font-weight: 500;
+}
+.link-active{
+    color : #C7D7EB;
+    font-size: 13px;
+    font-weight: 500;
+}
+.no-text-decoration{
+    text-decoration: none;
+}
+.link:hover{
+    text-decoration: none;
+    color : #C7D7EB;
+}
+button:focus{
+    outline: none !important;
+}
+/* ------------------------------------------------ NEWS CARD ------------------------------------------------------ */
+.news-card{
+    width: 98% !important;
+    margin-top: 10px !important;
+    margin-bottom: 20px !important;
+    border: 1px solid #e6e4e4 !important;
+    border-radius: 3px !important;
+    box-shadow: 0 7px 14px 0 rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+.news-card-row{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.news-card-text-area{
+    padding-right: 20px !important;
+}
+.news-card-title{
+    font-size: 19px;
+    font-style: italic;
+    font-weight: bold;
+}
+.news-card-desc{
+    font-size: 14px;
+}
+.news-card-date{
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 500;
+}
+.news-card img{
+    /* height: 175px; */
+    width: 100%;
+    object-fit: cover;
+}
+
+/* -------------------------------------------------- SECTION BASED CSS -------------------------------------------- */
+
+.section-basic{
+    float : right;
+    font-size : 14px;
+    font-weight: 600;
+    padding: 2px 4px;
+    border: none;
+    border-radius : 3px;
+    margin-left: 7px;
+}
+.section-font-small-screen{
+    font-size: 12px !important;
+}
+.section-world{
+    background-color: #7C4EFF;
+    color : white;
+}
+.section-politics{
+    background-color: #419488;
+    color : white;
+}
+.section-business{
+    background-color: #4696EC;
+    color : white;
+}
+.section-technology{
+    background-color: #CEDC39;
+    color : black;
+}
+.section-sports{
+    background-color: #F6C244;
+    color : black;
+    font-weight: 700;
+}
+.section-other{
+    background-color: #6E757C;
+    color : white;
+}
+.section-right-padding{
+    padding-right: 20px !important;
+}
+/* ----------------------------------------------- DETAILED NEWS PAGE -------------------------------------------------------------- */
+
+.detialed{
+    width : 98% !important;
+    margin-top: 10px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 30px !important;
+    border: 1px solid #e6e4e4 !important;
+    border-radius: 3px !important;
+    box-shadow: 0 7px 14px 0 rgba(0,0,0,0.3);
+    padding : 20px;
+}
+.detailed-title{
+    font-size: 26px;
+    font-style: italic;
+    font-weight: 500;
+}
+.detailed-share{
+    text-align: right;
+}
+.detailed-right, .extend-right{
+    float: right !important;
+}
+.detailed-image{
+    width: 100% !important;
+    /* height: 700px !important; */
+}
+.detailed-desc{
+    padding-top: 10px;
+    font-size : 15px;
+}
+.detailed-desc-adv{
+    padding-top: 15px;
+    font-size : 15px;
+}
+.extend{
+    padding-top: 15px;
+}
+.share-buttons{
+    display: inline;
+}
+.bottom-padding{
+    padding-bottom: 7px;
+}
+.detailed-card-date-small{
+    font-size: 14px !important;
+    font-style: italic;
+    padding-top: 3px;
+    padding-left: 25px !important;
+}
+.detailed-card-date{
+    font-size: 16px !important;
+    font-style: italic;
+    padding-left: 25px !important;
+}
+.bookmark-right-padding{
+    padding-right: 25px !important;
+}
+/* --------------------------------------------------- LOADING -------------------------------------------------------------------- */
+.center-loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    flex-direction: column;
+}
+ /* ------------------------------------------------------- SHARE MODAL ------------------------------------------------------ */
+ .modal-title{
+     font-size: 17px !important;
+ }
+ .center-align{
+    text-align: center;
+}
+.share-via{
+    font-size: 16px !important;
+    font-weight: 600;
+    padding-bottom: 5px !important;
+}
+.modal-width{
+    width : 90% !important;
+}
+.newsType-heading{
+    font-size: 20px;
+    font-weight: bold;
+}
+/* --------------------------------------------------- AUTOSEARCH -------------------------------------------------------- */
+.autosearch{
+    width : 315px !important;
+}
+.autosearch-small-screen{
+    width : 260px !important
+}
+.search-results{
+    font-size: 23px;
+    font-weight: 600;
+    padding-left: 20px;
+}
+.search-card{
+    /* width: 98% !important; */
+    margin-top: 10px !important;
+    margin-bottom: 20px !important;
+    border: 1px solid #e6e4e4 !important;
+    border-radius: 3px !important;
+    box-shadow: 0 7px 14px 0 rgba(0,0,0,0.3);
+}
+.search-card-title{
+    font-size: 17px;
+    font-style: italic;
+    font-weight: bold;
+    padding-top : 10px;
+    padding-bottom: 10px;
+}
+.search-card-date{
+    font-size: 14px;
+    font-style: italic;
+}
+.search-card-date-section{
+    padding-top: 15px;
+    padding-bottom: 25px;
+}
+.section-right{
+    float: right;
+}
+.no-results{
+    padding-top: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+/* --------------------------------------------- SWITCH STYLING --------------------------------------------------------------- */
+.switch{
+    top:50%;
+    bottom: 50%;
+    color: white;
+    font-size: 16px;
+}
+.switch-position{
+    /* top:60%;
+    bottom: 40%; */
+    vertical-align: middle;
+}
+.do-not-display{
+    display: none;
+}
+/* --------------------------------------------- FAVORITES ------------------------------------------------------ */
+.guardian-tab{
+    background-color: #14284A;
+    color : white;
+}
+.nytimes-tab{
+    background-color: #DDDDDD;
+    color : black;
+}
+.no-favorites{
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+/* ------------------------------------------------------ TOAST MESSAGE ---------------------------------------------------- */
+.font-black{
+    color: black !important;
+    font-size: 13px !important;
+    font-weight: 550;
+}
+.Toastify__close-button--default{
+    font-size: 10px !important;
+}
+/* ---------------------------------------------------- TOOLTIPS ----------------------------------------------------------- */
+.padding{
+    padding : 3px 5px !important;
+}
+
+.no-padding{
+    padding: 0px !important;
+}
+/* ------------------------------------------------------- MEDIA QUERIES ------------------------------------------ */
+.padding-mobile{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
