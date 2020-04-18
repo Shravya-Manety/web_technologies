@@ -2,9 +2,10 @@
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#5823AD</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#5823AD</color>
     <color name="bottomNavbarSelected">#5823AD</color>
     <color name="bottomNavbarNotSelected">#808080</color>
-    <color name="bookmark">#F25728</color>
-    <color name="timeSectionName">#E8E8E8</color>
+    <color name="bookmark">#FA3900</color>
+    <color name="timeSectionName">#999594</color>
+    <color name="textColor">#000000</color>
 </resources>

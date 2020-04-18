@@ -33,18 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-
-import java.time.LocalDateTime;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 
 /**
@@ -85,20 +75,20 @@ public class HomeFragment extends Fragment {
             cityName = addresses.get(0).getLocality();
             stateName = addresses.get(0).getAdminArea();
 
-            System.out.println("City: " + cityName);
-            System.out.println("State: " + stateName);
+//            System.out.println("City: " + cityName);
+//            System.out.println("State: " + stateName);
         }
 
 
-        // Instantiate the RequestQueue.
+
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
         String openWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&units=metric&appid=eed15b03c76139e28686f8836c08e388";
         StringRequest stringRequestOpenWeather = new StringRequest(Request.Method.GET, openWeatherUrl,
                 new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(String response){
                         parseOpenWeatherResponse(response, view);
-                        System.out.println("Response from open weather api is :" + response);
+//                        System.out.println("Response from open weather api is :" + response);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -108,68 +98,12 @@ public class HomeFragment extends Fragment {
         });
         queue.add(stringRequestOpenWeather);
 
-        String guardianHomeUrl ="http://localhost:5000/guardianHome";
-        StringRequest stringRequestGuardianHome = new StringRequest(Request.Method.GET, guardianHomeUrl,
-                new Response.Listener<String>() {
-                    @RequiresApi(api = Build.VERSION_CODES.O)
-                    @Override
-                    public void onResponse(String response) {
-                        System.out.println("Response is: "+ response.toString());
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            processResponseGuardianHome(response, view);
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.i("HomeFragment", error.toString());
-                }
-            });
-
-//      Add the request to the RequestQueue.
-        queue.add(stringRequestGuardianHome);
-
+        NewsCardFragment newsCardFragment = new NewsCardFragment(getActivity().getApplicationContext());
+        Bundle bundleNewsFragment = new Bundle();
+        bundleNewsFragment.putString("newsUrl", "http://localhost:5000/guardianHome");
+        newsCardFragment.setArguments(bundleNewsFragment);
+        MainActivity.fragmentManager.beginTransaction().add(R.id.newscard_fragment_container, newsCardFragment, null).commit();
         return view;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void processResponseGuardianHome(String response, View view) {
-        try {
-            JSONArray jsonArray = new JSONArray(response);
-            LocalDateTime ldt = LocalDateTime.now();
-            System.out.println("Local date time now :"+ldt);
-            ZoneId zoneId = ZoneId.of( "America/Los_Angeles" );        //Zone information
-            ZonedDateTime zdtAtLA = ldt.atZone( zoneId );
-            System.out.println("ZoneData in LA now :"+zdtAtLA);
-
-            for(int i=0; i< jsonArray.length() ; i++){
-                JSONObject newsObj = jsonArray.getJSONObject(i);
-                String date = newsObj.getString("date");
-                String subDate = date.substring(0, date.length() -1);
-                LocalDateTime localDateTime = LocalDateTime.parse(subDate);
-                ZonedDateTime zoneNews = localDateTime.atZone(zoneId);
-                Duration d = Duration.between( zdtAtLA , zoneNews );
-//                System.out.println("seconds :" +d.getSeconds());
-                long mil = zoneNews.toInstant().toEpochMilli();
-                System.out.println("millis: "+mil);
-//                String text = TimeAgo.using(mil);
-//                System.out.println("time difference:"+text);
-
-
-
-
-
-
-            }
-            NewsCardFragment newsCardFragment = new NewsCardFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("newsItems", jsonArray.toString());
-            newsCardFragment.setArguments(bundle);
-            MainActivity.fragmentManager.beginTransaction().add(R.id.newscard_fragment_container, newsCardFragment, null).commit();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void parseOpenWeatherResponse(String response, View view) {
@@ -185,10 +119,10 @@ public class HomeFragment extends Fragment {
             textViewStateName = view.findViewById(R.id.state_name);
             textViewStateName.setText(stateName);
             textViewTemp = view.findViewById(R.id.temperature);
-            System.out.println("Temperature :"+temperature);
+//            System.out.println("Temperature :"+temperature);
             textViewTemp.setText(String.valueOf(temperature));
             textViewSummary = view.findViewById(R.id.weather_summary);
-            System.out.println("Summary :"+summary);
+//            System.out.println("Summary :"+summary);
             textViewSummary.setText(summary);
 
             imageViewWeatherCard = view.findViewById(R.id.weather_image);

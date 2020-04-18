@@ -25,7 +25,9 @@ public class BookmarksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bookmarks, container, false);
+        View view = inflater.inflate(R.layout.fragment_bookmarks, container, false);
+        MainActivity.fragmentManager.beginTransaction().add(R.id.bookmarks_fragment_container, new BookmarkNewsCardFragment(getActivity().getApplicationContext())).addToBackStack("bookmarks fragment").commit();
+        return view;
     }
 
 }
