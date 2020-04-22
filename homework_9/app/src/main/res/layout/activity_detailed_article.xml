@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detailed_article"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 <LinearLayout
@@ -50,6 +51,7 @@
             android:background="@color/colorPrimary"/>
 
         <ImageButton
+            android:id="@+id/detailed_twitter_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"

@@ -2,8 +2,10 @@ package com.example.newsapp;
 
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputType;
@@ -23,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -88,6 +91,7 @@ public class TrendingFragment extends Fragment {
         String googleTrendsNodeUrl = "http://localhost:5000/getGoogleTrendsData/"+queryKeyword;
         StringRequest stringRequestGoogleTrends = new StringRequest(Request.Method.GET, googleTrendsNodeUrl,
                 new Response.Listener<String>() {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void onResponse(String response) {
                         System.out.println("googleTrendsResponse" + response);
@@ -100,17 +104,29 @@ public class TrendingFragment extends Fragment {
                             LineDataSet trendsDataSet = new LineDataSet(valuesFromTrends, "Trending Chart for "+queryKeyword);
                             trendsDataSet.setColor(Color.parseColor("#7E7AC3"));
                             trendsDataSet.setDrawHighlightIndicators(false);
-                            List<ILineDataSet> finalTrendsDataSet = new ArrayList<ILineDataSet>();
-                            finalTrendsDataSet.add(trendsDataSet);
-                            LineData data = new LineData(finalTrendsDataSet);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                trendsDataSet.setCircleColor(getActivity().getColor(R.color.colorAccent));
+                                trendsDataSet.setCircleHoleColor(getActivity().getColor(R.color.colorAccent));
+                            }
+
+                            LineData data = new LineData(trendsDataSet);
                             LineChart googleTrendsChart = view.findViewById(R.id.trends_line_chart);
-                            googleTrendsChart.setData(data);
+
                             Legend l = googleTrendsChart.getLegend();
-                            l.setTextSize(18f);
+                            l.setEnabled(true);
+                            l.setTextSize(17);
+                            l.setFormSize(17);
+                            l.setWordWrapEnabled(true);
+                            l.setMaxSizePercent(0.90f);
+
                             googleTrendsChart.getAxisLeft().setDrawGridLines(false);
                             googleTrendsChart.getXAxis().setDrawGridLines(false);
                             googleTrendsChart.getAxisRight().setDrawGridLines(false);
 
+                            YAxis leftAxis = googleTrendsChart.getAxisLeft();
+                            leftAxis.setAxisLineColor(getActivity().getColor(R.color.colorPrimary));
+
+                            googleTrendsChart.setData(data);
                             googleTrendsChart.invalidate();
                         } catch (JSONException e) {
                             e.printStackTrace();

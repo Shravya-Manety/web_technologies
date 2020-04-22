@@ -54,7 +54,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends AppCompatActivity{
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     LocationManager locationManager;
@@ -71,23 +71,27 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        JodaTimeAndroid.init(this);
-        fragmentManager = getSupportFragmentManager();
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-
-        provider = locationManager.getBestProvider(new Criteria(), false);
-        System.out.println("Provider : "+ provider);
-
-        checkLocationPermission();
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-    }
 
+        if(findViewById(R.id.navigation) != null){
+            if(savedInstanceState != null){
+                System.out.println("SavedInstanceState = "+savedInstanceState);
+                System.out.println("In saved instance: returning from here");
+                return;
+            }
+            JodaTimeAndroid.init(this);
+            fragmentManager = getSupportFragmentManager();
+            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            provider = locationManager.getBestProvider(new Criteria(), false);
+            System.out.println("Provider : "+ provider);
+
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+            bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        }
+    }
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -112,11 +116,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     selectedFragment = new BookmarksFragment();
                     break;
             }
-            fragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment).addToBackStack("bottom nav item").commit();
             return true;
         }
     };
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -230,143 +233,4 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         };
         queue.add(bingAutoSuggestRequest);
     }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-
-        Log.i("Location info: Lat", latitude.toString());
-        Log.i("Location info: Lng", longitude.toString());
-
-        HomeFragment homeFragment = new HomeFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("latitude" , latitude.toString());
-        bundle.putString("longitude", longitude.toString());
-        homeFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
     }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-    }
-
-    public void getLocation(View view) {
-        provider = locationManager.getBestProvider(new Criteria(), false);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        System.out.println("In getLocation Provider: " + provider);
-        Location location = locationManager.getLastKnownLocation(provider);
-
-        onLocationChanged(location);
-
-
-    }
-
-    public boolean checkLocationPermission() {
-        System.out.println("Inside Check Location Permission");
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            System.out.println("If permission is not granted");
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                System.out.println("Showing an explanation");
-
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.title_location_permission)
-                        .setMessage(R.string.text_location_permission)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions( MainActivity.this,
-                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION);
-                            }
-                        })
-                        .create()
-                        .show();
-
-
-            } else {
-                System.out.println("Directly requesting permission");
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            System.out.println("Required permissions already exist");
-            return true;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        provider = locationManager.getBestProvider(new Criteria(), false);
-        System.out.println("onRequestPermissionResult Request Code :" + requestCode);
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
-                    if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-
-                        //Request location updates:
-                        locationManager.requestLocationUpdates(provider, 400, 1, this);
-                    }
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-
-                }
-                return;
-            }
-
-        }
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
-        provider = locationManager.getBestProvider(new Criteria(), false);
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            System.out.println("Provider value onResume :" + provider);
-            locationManager.requestLocationUpdates(provider, 400, 1, this);
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-
-            locationManager.removeUpdates(this);
-        }
-    }
-
-}

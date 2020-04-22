@@ -1,94 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="250dp"
     android:layout_marginTop="5dp"
-    android:layout_marginRight="8dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
     android:layout_marginBottom="5dp"
     app:cardCornerRadius="8dp"
     app:cardMaxElevation="2dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/bookmark_newscard_image"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_weight="5"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/bookmark_newscard_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="3"
             android:ellipsize="end"
             android:maxLines="3"
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookmark_newscard_image" />
 
         <LinearLayout
+            android:id="@+id/time_boomark_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="7dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookmark_newscard_title">
 
             <TextView
                 android:id="@+id/bookmark_newscard_time"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="9"
+                android:layout_gravity="bottom"
+                android:text="27 Mar"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/timeSectionName"
-                android:layout_marginLeft="5dp"
-                android:layout_marginStart="5dp"
-                android:text="27 m ago"
-                android:textSize="14sp"
-                android:layout_gravity="bottom"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/bookmark_newscard_pipe"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:gravity="center"
                 android:text="@string/pipe"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/colorAccent"
-                android:textSize="14sp"
-                android:layout_gravity="bottom"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/bookmark_newscard_sectionName"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="11"
+                android:layout_gravity="bottom"
+                android:text="Life Style Fashion"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/timeSectionName"
-                android:textSize="14sp"
-                android:text="environment"
-                android:layout_gravity="bottom" />
+                android:textSize="14sp" />
 
-            <ImageButton
-                android:id="@+id/bookmark_newscard_bookmark_button"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="right"
-                android:src="@drawable/bookmark_border_black_18dp"
-                android:adjustViewBounds="true"
-                android:background="@color/colorPrimary"
-                android:contentDescription="@string/bookmark_button"
-                android:scaleType="fitCenter"
-                android:tint="@color/bookmark" />
 
         </LinearLayout>
-    </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/bookmark_newscard_bookmark_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="2"
+            android:background="@color/colorPrimary"
+            android:contentDescription="@string/bookmark_button"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_bookmark_black"
+            android:tint="@color/bookmark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookmark_newscard_title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.cardview.widget.CardView>

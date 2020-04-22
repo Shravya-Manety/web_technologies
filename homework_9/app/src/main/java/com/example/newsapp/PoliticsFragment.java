@@ -7,7 +7,9 @@ import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,8 @@ import org.json.JSONException;
 public class PoliticsFragment extends Fragment {
 
     private Context context;
+    private SwipeRefreshLayout swipeToRefresh;
+    private NewsCardFragment newsCardFragment;
     public PoliticsFragment(Context context) {
         // Required empty public constructor
         this.context = context;
@@ -41,11 +45,30 @@ public class PoliticsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_politics, container, false);
-        NewsCardFragment newsCardFragment = new NewsCardFragment(context);
+        newsCardFragment = new NewsCardFragment(context);
         Bundle bundle = new Bundle();
         bundle.putString("newsUrl", "http://localhost:5000/guardianPolitics");
+        bundle.putString("parent", "MainActivity");
         newsCardFragment.setArguments(bundle);
         MainActivity.fragmentManager.beginTransaction().add(R.id.politics_fragment, newsCardFragment, null).commit();
+
+        swipeToRefresh = view.findViewById(R.id.news_swipeRefresh_politics);
+        swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                newsCardFragment.resetAdapterOnRefresh();
+                final Handler animationHandler = new Handler();
+                animationHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(swipeToRefresh.isRefreshing()) {
+                            swipeToRefresh.setRefreshing(false);
+                        }
+                    }
+                }, 1000);
+            }
+        });
+
         return view;
     }
 

@@ -2,6 +2,6 @@
 <searchable
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:label="@string/application_search"
-    android:hint="@drawable/search_black_18dp" >
+    >
 
 </searchable>

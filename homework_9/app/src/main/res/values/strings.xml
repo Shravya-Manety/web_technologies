@@ -19,4 +19,7 @@
     <string name="alert_box_image">alert box image</string>
     <string name="shared_preferences_name">com.example.newsapp.sharedPreferenceBookmark</string>
     <string name="pipe">|</string>
+    <string name="no_bookmarked_articles">No Bookmarked Articles</string>
+    <string name="fetching_news">Fetching News</string>
+    <string name="no_search_results">No Search Results</string>
 </resources>

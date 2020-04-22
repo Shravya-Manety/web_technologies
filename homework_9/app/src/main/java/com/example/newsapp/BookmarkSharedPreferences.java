@@ -27,7 +27,7 @@ public class BookmarkSharedPreferences {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(articleId, article.toString());
             editor.commit();
-            Toast.makeText(context, "\"" + titleToDisplay + "\"" + "was added to bookmarks", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "\"" + titleToDisplay + "\"" + " was added to bookmarks", Toast.LENGTH_SHORT).show();
         }
         System.out.println("articles in shared preference after adding " + sharedPreferences.getAll().toString());
     }
@@ -45,7 +45,7 @@ public class BookmarkSharedPreferences {
         editor.remove(articleId);
         editor.commit();
         System.out.println("from sharedpref after remove:"+sharedPreferences.getAll().size());
-        Toast.makeText(context, "\"" + titleToDisplay + "\"" + "was removed from favorites", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "\"" + titleToDisplay + "\"" + " was removed from favorites", Toast.LENGTH_SHORT).show();
     }
     public List<JSONObject> getAllArticlesFromBookmark(){
 
