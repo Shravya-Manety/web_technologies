@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">NewsApp</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_location_permission">Location Permission</string>
+    <string name="text_location_permission">Please provide permission to access location.</string>
+    <string name="ok">OK</string>
+    <string name="weather_card">Weather Card</string>
+    <string name="degree_symbol">\u00B0C</string>
+    <string name="bookmark_button">bookmark_button</string>
+    <string name="view_full_article"><u>View Full Article</u></string>
+    <string name="detailed_article_title">Detailed Article Title</string>
+    <string name="bookmark_on_detailed_article_page">bookmark on detailed article page</string>
+    <string name="twitter_icon_on_detailed_article_page">twitter icon on detailed article page</string>
+    <string name="enter_search_term">Enter Search Term :</string>
+    <string name="google_trends_hint">Coronavirus</string>
+    <string name="application_search">application search</string>
+    <string name="alert_box_image">alert box image</string>
+    <string name="shared_preferences_name">com.example.newsapp.sharedPreferenceBookmark</string>
+    <string name="pipe">|</string>
+    <string name="no_bookmarked_articles">No Bookmarked Articles</string>
+    <string name="fetching_news">Fetching News</string>
+    <string name="no_search_results">No Search Results</string>
+    <string name="newsapp">NewsApp</string>
+    <string name="share_via">Share via :</string>
+    <string name="facebook_app_id">245490563558389</string>
+</resources>

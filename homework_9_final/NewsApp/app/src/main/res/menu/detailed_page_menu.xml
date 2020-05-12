@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    <item-->
+<!--        android:id="@+id/detailed_bookmark"-->
+<!--        android:title="Bookmark"-->
+<!--        android:background="@color/colorWhite"-->
+<!--        android:iconifiedByDefault="true"-->
+<!--        app:showAsAction="always"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        android:tint="@color/bookmark"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        >-->
+<!--    </item>-->
+<!--    <item-->
+<!--        android:id="@+id/detailed_twitter"-->
+<!--        android:title="Twitter"-->
+<!--        android:background="@color/colorWhite"-->
+<!--        android:iconifiedByDefault="true"-->
+<!--        android:icon="@drawable/bluetwitter"-->
+<!--        app:showAsAction="always"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:scaleType="fitCenter">-->
+<!--    </item>-->
+    <item
+        android:id="@+id/detailed_share"
+        android:title="Share"
+        android:background="@color/colorWhite"
+        android:iconifiedByDefault="true"
+        android:icon="@drawable/ic_share_black_24dp"
+        app:showAsAction="always"
+        android:iconTint="@color/bookmark"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="fitCenter">
+    </item>
+
+</menu>

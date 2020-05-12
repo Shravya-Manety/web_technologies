@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#103170</color>
+    <color name="colorAccent">#103170</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="bottomNavbarSelected">#103170</color>
+    <color name="bottomNavbarNotSelected">#808080</color>
+    <color name="bookmark">#103170</color>
+    <color name="timeSectionName">#999594</color>
+    <color name="textColor">#000000</color>
+    <color name="viewDetailedArticle">#5c5d5e</color>
+</resources>
